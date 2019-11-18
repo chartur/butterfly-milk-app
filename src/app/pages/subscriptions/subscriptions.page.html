@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Subscription
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-refresher></app-refresher>
+  <app-images [student]="student"></app-images>
+  <app-notification-settings [notificationSettings]="notificationSettings" (saveSettings)="saveNotificationSettings($event)"></app-notification-settings>
+</ion-content>

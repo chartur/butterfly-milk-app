@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Books
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+  <app-refresher></app-refresher>
+  <div class="table-responsive">
+    <ngx-datatable
+        [rows]="studentBooks"
+        [ngClass]="tblStyle"
+        (activate)="onActivate($event)"
+        rowHeight="auto"
+        headerHeight="50"
+        [scrollbarH]="true"
+        [sorts]="[{prop: 'status'}]"
+    >
+
+      <ngx-datatable-column name="Borrowed">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.borrowed_dt | date:'dd/MM/yy'}}
+          </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Level" prop="book.level"></ngx-datatable-column>
+      <ngx-datatable-column name="Name" prop="book.title"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Due Date">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.shouldReturn | date:'dd/MM/yy'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Status" sortable="false">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div *ngIf="row.status === 1">
+            <span class="text-danger">Overdue</span>
+          </div>
+          <div *ngIf="row.status === 2">
+            <span class="text-warning">Taken</span>
+          </div>
+          <div *ngIf="row.status === 3">
+            <span class="text-success">Done</span>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</ion-content>

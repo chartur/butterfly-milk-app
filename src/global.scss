@@ -1,0 +1,41 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+@import "~bootstrap/scss/bootstrap";
+
+@import "~@swimlane/ngx-datatable/index";
+@import "~@swimlane/ngx-datatable/themes/dark";
+@import "~@swimlane/ngx-datatable/themes/bootstrap";
+@import "~@swimlane/ngx-datatable/themes/material.css";
+@import "~@swimlane/ngx-datatable/assets/icons.css";
+
+.nowrap {
+  white-space:nowrap;
+}
+ion-content{
+  --ion-background-color: #FBF7E6;
+}
+ion-header{
+  --ion-background-color: #d7dde4;
+}
+
+.modal-close-button{
+  font-size: 35px;
+  margin-right: 10px;
+}
+
+ion-infinite-scroll:not(.active) .spinner,
+ion-infinite-scroll:not(.active) .icon:before {
+  display: block!important;
+}
+.no-data-available{
+  height: calc(100vh - 43px) ;
+}

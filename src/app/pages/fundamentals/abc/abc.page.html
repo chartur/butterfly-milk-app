@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            ABC
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-refresher></app-refresher>
+    <ion-grid>
+        <ion-row *ngFor="let alp of alphabet">
+            <ion-col *ngFor="let a of alp" (click)="clickOnLetter(a)">
+                <ion-card>
+                  <img [src]="appParams.makeStaticUrl('images/alphabet/' + a + '.png')">
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

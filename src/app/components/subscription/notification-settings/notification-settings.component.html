@@ -1,0 +1,14 @@
+<ion-card>
+  <h3 class="ion-text-center">Notification Settings</h3>
+  <ion-item>
+    <ion-label>Notification Day</ion-label>
+    <ion-select [placeholder]="notificationSettings?.dayNumber ? weekDays[notificationSettings.dayNumber - 1] : weekDays[0]" (ionChange)="changeDay($event)">
+      <ion-select-option *ngFor="let day of weekDays; let i = index" value="{{ i+1 }}" [selected]="i+1 == notificationSettings?.dayNumber">{{ day }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Notification Time</ion-label>
+    <ion-datetime displayFormat="HH:mm" (ionChange)="changeTime($event)" [value]="notificationSettings?.timeSlot ? notificationSettings.timeSlot : '00:00'"></ion-datetime>
+  </ion-item>
+  <ion-button primary expand="block" (click)="saveNotificationSettings()">Save Settings</ion-button>
+</ion-card>

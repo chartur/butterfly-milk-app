@@ -1,0 +1,19 @@
+<ion-tabs>
+    <ion-tab-bar slot="bottom" *ngIf="loggedIn">
+        <ion-tab-button tab="notification">
+            <ion-icon name="notifications"></ion-icon>
+            <ion-label>Notifications</ion-label>
+            <!--<ion-badge>6</ion-badge>-->
+        </ion-tab-button>
+
+        <ion-tab-button (click)="chooseStudent()">
+            <ion-icon name="contacts"></ion-icon>
+            <ion-label>Choose Student</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="settings">
+            <ion-icon name="settings"></ion-icon>
+            <ion-label>Settings</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

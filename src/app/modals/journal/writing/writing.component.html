@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Writing details
+    </ion-title>
+    <ion-buttons class="modal-close-button" (click)="dismiss()" slot="end">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <div class="card" *ngIf="image && student && lesson">
+      <div class="card-header">
+        <h4 class="text-center mt-3">
+          Journal Entry for
+          {{ student.name + ' ' + student.surname }} - {{ lesson.title }}
+          <br>
+          <small class="text-muted">(Writing {{ lesson.is_reading ? ', Reading' : '' }} {{ lesson.is_movie ? ', Film' : '' }} {{ lesson.is_vocab ? ', Vocab' : '' }})</small>
+        </h4>
+      </div>
+      <div class="card-content">
+        <ion-img [src]="appParams.makeStaticUrl(image.file_path)"></ion-img>
+      </div>
+    </div>
+</ion-content>

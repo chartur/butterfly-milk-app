@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Syllables - {{count}}
+    </ion-title>
+    <ion-buttons class="modal-close-button" (click)="dismiss()" slot="end">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <app-fundamentals-sliders [items]="items.words"></app-fundamentals-sliders>
+</ion-content>

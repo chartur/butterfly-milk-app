@@ -1,0 +1,21 @@
+<ion-card *ngIf="student">
+  <h3 class="ion-text-center">Student Images</h3>
+  <ion-card-header class="ion-text-center">
+    <ion-card-title>{{student.name + ' ' + student.surname}}</ion-card-title>
+    <ion-card-subtitle>{{ student.startDate }}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+      <ion-img *ngIf="!student.images.length; else issetImages" [src]="avatar"></ion-img>
+      <ng-template #issetImages>
+          <ion-slides [options]="slideOptsOne">
+            <ion-slide *ngFor="let image of student.images">
+              <div>
+                <ion-img (click)="photoViewerFunc(image)" [src]="image.path"></ion-img>
+                <h4 class="image-date">{{image.created_at}}</h4>
+              </div>
+            </ion-slide>
+        </ion-slides>
+      </ng-template>
+  </ion-card-content>
+</ion-card>

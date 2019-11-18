@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" padding>
+  <div class="ion-text-center">
+    <img src="assets/images/logo_circle.png" class="logo">
+  </div>
+  <ion-item margin-top>
+    <ion-label color="primary" >Username</ion-label>
+    <ion-input #usernameCtrl="ngModel" required [(ngModel)]="username"></ion-input>
+  </ion-item>
+
+  <ion-item margin-top>
+    <ion-label color="primary">Password</ion-label>
+    <ion-input [type]="passwordType ? 'password' : 'text'" #passwordCtrl="ngModel" required [(ngModel)]="password"></ion-input>
+    <ion-button expand="block" (click)="passwordType = !passwordType" color="primary">
+        <ion-icon [name]="passwordType ? 'eye' : 'eye-off'" ></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-button margin-top expand="block" (click)="login()" color="primary">
+    Sign In
+    <ion-icon name="log-in" margin-start></ion-icon>
+  </ion-button>
+</ion-content>

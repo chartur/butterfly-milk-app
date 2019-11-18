@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Vocabulary
+    </ion-title>
+    <ion-buttons class="modal-close-button" (click)="dismiss()" slot="end">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="card">
+    <div class="card-header">
+      <h5>Vocab Entries for {{ student.name + ' ' + student.surname }} on {{ lesson.lesson_date | date: 'dd/MM/yy' }}</h5>
+    </div>
+    <div *ngFor="let v of vocabulary" class="card-footer text-center" (click)="wordDetails(v.word.id)">
+      <h6>{{ v.word.word }} ({{ v.word.types.title }})</h6>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "Butterfly",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

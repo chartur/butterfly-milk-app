@@ -1,0 +1,36 @@
+<ion-content fullscreen align-items-center>
+  <ion-slides #wordSlide pager="true" [options]="slideOpts" (ionSlideWillChange)="slideChanged(wordSlide)" *ngIf="items.length; else noWords">
+    <ion-slide *ngFor="let item of items">
+      <div class="d-flex justify-content-center align-items-center w-100 fundamental-slider-container">
+        <div class="fundamental-slider-item">
+          <div class="fundamental-slider-word" (click)="playSound(item)" [innerHTML]="HTML ? HTML : (item.html ? item.html : item.word)"></div>
+          <hr>
+          <ion-img [src]="item.picture_path ? appParams.makeStaticUrl(item.picture_path) : appParams.noImagePng()"></ion-img>
+          <hr>
+          <div *ngIf="item.sentences" class="fundamental-slider-sentence">
+              <div *ngFor="let sentence of item.sentences">
+                <div class="d-flex justify-content-center align-items-center">
+                  <div *ngIf="sentence.soundfile_path">
+                    <ion-button color="primary" (click)="sentenceFullReader(sentence)">
+                      <ion-icon name="volume-high"></ion-icon>
+                    </ion-button>
+                  </div>
+                  <div class="flex-grow-1" *ngIf="fullSentencePlay else playPartOfSentence" [innerHTML]="sentence.html"></div>
+                  <ng-template #playPartOfSentence>
+                    <div class="flex-grow-1">
+                        <span #sentenceWord (click)="playSentenceWord(sentenceWord, sW)" *ngFor="let sW of sentence.words" [ngClass]="sW.word.toLowerCase().trim() === item.word.toLowerCase().trim() ? 'science-word' : ''" class="d-inline-block mr-1">{{ sW.word }}</span>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <ng-template #noWords>
+    <div class="d-flex justify-content-center align-items-center w-100 no-data-available">
+      <small class="text-muted">No data available!</small>
+    </div>
+  </ng-template>
+</ion-content>

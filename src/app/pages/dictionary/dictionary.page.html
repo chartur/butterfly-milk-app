@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Dictionary
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content >
+  <app-refresher></app-refresher>
+  <div class="card p-0">
+      <div class="card-header p-0">
+        <form [formGroup]="searchForm">
+          <div class="w-100 mt-3 btn-group">
+            <ion-button class="w-50" expand="block" (click)="viewType = !viewType; submitForm()" [color]="viewType ? 'primary' : 'secondary'">Calendar View</ion-button>
+            <ion-button class="w-50" expand="block" (click)="viewType = !viewType" [color]="!viewType ? 'primary' : 'secondary'">Table View</ion-button>
+          </div>
+          <ion-searchbar class="mt-2" formControlName="search" (ionBlur)="submitForm()" searchIcon="search" (search)="submitForm()" color="light"></ion-searchbar>
+          <ion-list>
+            <ion-item *ngIf="viewType">
+              <ion-label>Year</ion-label>
+              <ion-select value="" (ionChange)="submitForm()" formControlName="year" okText="Select" cancelText="Close">
+                <ion-select-option value="" selected>Select Date</ion-select-option>
+                <ion-select-option value="{{ year }}" *ngFor="let year of years">{{ year }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="viewType">
+              <ion-label>Month</ion-label>
+              <ion-select value="" (ionChange)="submitForm()" formControlName="month" okText="Select" cancelText="Close">
+                <ion-select-option value="" selected>Select Date</ion-select-option>
+                <ion-select-option value="{{ (i + 1) }}" *ngFor="let month of months; let i = index">{{ month }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="!viewType">
+              <ion-label>Letter</ion-label>
+              <ion-select value="" formControlName="letter" (ionChange)="submitForm()" okText="Select" cancelText="Close">
+                <ion-select-option value="" selected>Select Date</ion-select-option>
+                <ion-select-option value="{{ alp }}" *ngFor="let alp of params.genCharArray('A','Z')">{{ alp }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </form>
+      </div>
+
+      <div class="card-content p-0">
+        <div *ngIf="words.length; else noData">
+          <div class="card">
+            <div class="d-flex justify-content-between align-items-center" (click)="wordDetails(w)" *ngFor="let w of words">
+              <div class="w-100 text-center flex-grow-1 pt-2 pb-2 ">
+                <div class="d-flex justify-content-between align-items-center pl-3 pr-3">
+                  <h5 class="flex-grow-1 mb-0">{{ w.word.word }}</h5>
+                  <ion-badge *ngIf="!w.viewed" color="secondary">New</ion-badge>
+                </div>
+                <span class="text-muted">({{ w.word.types.title }}) {{ w.created_at | date: 'dd/MM/yyy' }}</span>
+              </div>
+              <div style="font-size: 50px; color: #D0D0D0">
+                <ion-icon size="25" name="arrow-dropright"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noData>
+          <div class="d-flex justify-content-center align-items-center h-100 w-100">
+            <h5><small class="text-muted">No data available!</small></h5>
+          </div>
+        </ng-template>
+      </div>
+  </div>
+
+  <ion-button class="mt-2" expand="full" color="primary" (click)="loadData()" *ngIf="this.words.length < this.globalCount">Load More</ion-button>
+</ion-content>
+
+<ion-footer translucent="true">
+  <div class="card-footer">
+    <h6 class="text-muted text-right">Total Words - {{ globalCount }}</h6>
+  </div>
+</ion-footer>

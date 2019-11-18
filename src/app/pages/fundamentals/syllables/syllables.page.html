@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Syllables
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-refresher></app-refresher>
+  <ion-card *ngFor="let d of [].constructor(5); let i = index">
+    <ion-grid>
+      <ion-row (click)="clickOnSyllable(i+1)">
+        <ion-col [size]="3" align-self-center>
+          <ion-img [src]="appParams.makeStaticUrl('images/numbers/number_'+ (i + 1) +'.png')"></ion-img>
+        </ion-col>
+        <ion-col [size]="9" align-self-center>
+          <ion-img [src]="appParams.makeStaticUrl('images/syllables/syllable_'+ (i + 1) +'.png')"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+</ion-content>
