@@ -19,7 +19,6 @@ import { AppComponent } from './app.component';
 import { LoadingPreference } from './preferences/LoadingPreference';
 import {TabsPage} from './tabline/tab';
 
-
 @NgModule({
   declarations: [
     AppComponent,

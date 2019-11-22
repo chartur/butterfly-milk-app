@@ -1,9 +1,9 @@
 const AppParams = {
-    // domain: 'http://192.168.1.4:8080/',
-    // mainUrl: 'http://192.168.1.4:8080/api/',
+    domain: 'http://192.168.1.6:8080/',
+    mainUrl: 'http://192.168.1.6:8080/api/',
 
-    domain: 'http://5.189.134.90:8088/',
-    mainUrl: 'http://5.189.134.90:8088/api/',
+    // domain: 'http://5.189.134.90:8088/',
+    // mainUrl: 'http://5.189.134.90:8088/api/',
     makeUrl(url, data ?: {}): string {
         let u = new URL(this.mainUrl + url);
         const token = localStorage.getItem('auth_token');

@@ -3,14 +3,21 @@
     <ion-menu *ngIf="loggedIn">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Menu</ion-title>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <ion-title>Menu</ion-title>
+            </div>
+            <div class="student-selection-list flex-grow-1 mr-2">
+              <div class="student-selection mr-1" [ngClass]="{'active': stu.id == appParams.getDataFromStorage('student')}" (click)="chooseStudent(stu)" *ngFor="let stu of students" [ngStyle]="{'background-image': 'url(' + (!!stu.main_image ? appParams.makeStaticUrl(stu.main_image.path) : appParams.avatar()) + ')'}"></div>
+            </div>
+          </div>
         </ion-toolbar>
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" (click)="makeClickOfSideBar(p)" [routerLink]="[p?.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item  [routerDirection]="'root'" *ngFor="let p of appPages" routerLink="{{p.url}}" class="side-menu-item" routerLinkActive="active" >
+              <ion-icon slot="start" class="item-icon" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>

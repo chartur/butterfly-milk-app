@@ -41,7 +41,7 @@ export class TabsPage implements OnInit{
         loading.present();
 
         try {
-            const request: any = await this.handler.run(this.studentService.getStudents())
+            const request: any = await this.handler.run(this.studentService.getStudents());
             let students = request.data.students;
             students = students.map((student) => {
                 return {
