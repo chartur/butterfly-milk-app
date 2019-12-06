@@ -13,7 +13,13 @@
 <ion-content>
   <app-refresher></app-refresher>
 
-  <div>
+  <ion-list>
+    <ion-item (click)="logoutConfirmation()">
+      <ion-icon slot="start" color="danger" name="log-out"></ion-icon>
+      <ion-label class="text-danger">Log Out</ion-label>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="false">
       <form [formGroup]="passwordForm" >
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
           <ion-item>

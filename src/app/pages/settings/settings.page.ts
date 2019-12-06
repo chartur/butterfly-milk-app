@@ -8,6 +8,8 @@ import {SettingsService} from '../../services/settings.service';
 
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MustMatch} from '../../helpers/Validators/MustMatch';
+import {AlertController, MenuController} from '@ionic/angular';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -27,12 +29,15 @@ export class SettingsPage extends RouterPage implements OnInit, OnDestroy {
       private settingsService: SettingsService,
       private handler: HandleService,
       private loadingPref: LoadingPreference,
+      public menuCtrl: MenuController,
+      public alertController: AlertController,
+      private authService: AuthService,
   ) {
     super(router, route);
   }
 
   onEnter() {
-    this.initSettingsPage();
+    // this.initSettingsPage();
   }
 
   ngOnInit() {
@@ -71,4 +76,25 @@ export class SettingsPage extends RouterPage implements OnInit, OnDestroy {
     super.ngOnDestroy();
   }
 
+  async logoutConfirmation() {
+    this.menuCtrl.close();
+    const alert = await this.alertController.create({
+      header: 'Logout',
+      message: 'Are you  sure you want to log out?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Yes',
+          handler: () => {
+            this.authService.logOut();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

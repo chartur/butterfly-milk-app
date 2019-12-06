@@ -12,7 +12,7 @@ import { DatePipe} from '@angular/common';
 import { RouteReuseStrategy } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Media } from '@ionic-native/media/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 /* Custom Imports */
 import { AppComponent } from './app.component';
@@ -37,7 +37,7 @@ import {TabsPage} from './tabline/tab';
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
     LoadingPreference,
     PhotoViewer,
-    Media,
+    FCM,
     DatePipe,
   ],
   bootstrap: [AppComponent]

@@ -1,6 +1,4 @@
-import {Component, Input, OnChanges, OnInit, ViewEncapsulation} from '@angular/core';
-import { Media, MediaObject } from '@ionic-native/media/ngx';
-
+import {Component, ElementRef, Input, OnChanges, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import AppParams from '../../../params';
 import {HandleService} from '../../../services/handle.service';
 import {ChangeDetectorRef} from '@angular/core';
@@ -24,7 +22,6 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
     speed: 400,
   };
   constructor(
-      private media: Media,
       private ref: ChangeDetectorRef,
       private handler: HandleService,
       private loadingPref: LoadingPreference,
@@ -40,6 +37,9 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
   }
 
   async slideChanged(wordSlide: IonSlides, setIndex: number) {
+    if (this.playerStart) {
+      return false;
+    }
     const loading = await this.loadingPref.make();
     loading.present();
 
@@ -68,7 +68,7 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
     return loading.dismiss();
   }
 
-  playSound(item) {
+  playSound(item, element) {
     if (!this.playerStart) {
       return false;
     }
@@ -79,13 +79,13 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
           data.syllables = [];
           return false;
         }
-        const file: MediaObject = this.media.create(this.appParams.makeStaticUrl(v.soundfile_path));
-        data.syllables.push({syllable: v.syllable, file, first: !!!i });
+        const sound: string = this.appParams.makeStaticUrl(v.soundfile_path);
+        data.syllables.push({syllable: v.syllable, file: sound, first: !!!i });
       });
     }
     if (item.soundfile_path) {
-      const file: MediaObject = this.media.create(this.appParams.makeStaticUrl(item.soundfile_path));
-      data.general = file;
+      const sound: string = this.appParams.makeStaticUrl(item.soundfile_path);
+      data.general = sound;
     }
 
     if (!data.general && !data.syllables.length) {
@@ -93,36 +93,39 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
     }
 
     this.playerStart = false;
-    this.makePlayer(item.timing * 1000, data, item);
+    this.makePlayer(item.timing * 1000, data, item, element);
   }
 
-  makePlayer(timing: number, data: any, item: any) {
+  makePlayer(timing: number, data: any, item: any, element) {
     if (data.syllables.length) {
-      data.syllables[0].file.onSuccess.subscribe(() => {
+      element.src = data.syllables[0].file
+      element.onended = () => {
         setTimeout(() => {
           data.syllables.shift();
-          this.makePlayer(timing, data, item);
+          this.makePlayer(timing, data, item, element);
         }, timing);
-      });
-      data.syllables[0].file.play();
+      };
+      element.play();
       const searchMask = data.syllables[0].first ? data.syllables[0].syllable.capitalize() : data.syllables[0].syllable;
       const regEx = new RegExp(searchMask, 'ig');
       const replaceMask = `<span class="text-danger">${ searchMask }</span>`;
       const html = item.word.replace(regEx, replaceMask);
       this.HTML = html;
     } else if (data.general) {
-      data.general.onSuccess.subscribe(() => {
+      element.src = data.general;
+      element.onended = () => {
         this.HTML = false;
         this.ref.detectChanges();
         this.playerStart = true;
-      });
-      data.general.play();
+      };
+      element.play();
       this.HTML = '<span class="text-danger">' + item.word + '</span>';
     }
     this.ref.detectChanges();
   }
 
-  sentenceFullReader(sentence: any) {
+  sentenceFullReader(sentence: any, element) {
+    console.log(sentence);
     if (!this.playerStart) {
       return false;
     }
@@ -138,23 +141,23 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
     if (wordsCountOfSentenceTitle === wordsCount && typeof allWordsHaveSoundFile === 'undefined') {
       const fileData = sentence.words.map((item, index) => {
         return {
-          file: this.media.create(this.appParams.makeStaticUrl(item.soundfile_path)),
+          file: this.appParams.makeStaticUrl(item.soundfile_path),
           word: item.word,
           first: !!!index,
         };
       });
-      return this.playSentenceSounds(fileData, sentence.title, sentence.html, sentence);
+      return this.playSentenceSounds(fileData, sentence.title, sentence.html, sentence, element);
     }
     this.playerStart = false;
-    const file: MediaObject = this.media.create(this.appParams.makeStaticUrl(sentence.soundfile_path));
-    file.onSuccess.subscribe(() => {
+    element.src = this.appParams.makeStaticUrl(sentence.soundfile_path);
+    element.onended = () => {
       this.playerStart = true;
       this.fullSentencePlay = false;
-    });
-    file.play();
+    };
+    element.play();
   }
 
-  playSentenceSounds(fileData: any[], text: string, html: string, sentence: any, current: number = 0) {
+  playSentenceSounds(fileData: any[], text: string, html: string, sentence: any, element, current: number = 0) {
     if (current <= fileData.length - 1) {
       const h = fileData.map((item, index) => {
           if (index === current) {
@@ -163,22 +166,23 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
           return `<span>${item.word}</span>`;
       });
       this.playerStart = false;
-      fileData[current].file.onSuccess.subscribe(() => {
+      element.src = fileData[current].file;
+      element.onended = () => {
         setTimeout(() => {
           current++;
-          this.playSentenceSounds(fileData, text, html, sentence, current);
+          this.playSentenceSounds(fileData, text, html, sentence, element, current);
         }, sentence.timing * 1000);
-      });
+      };
       sentence.html = h.join(' ');
-      fileData[current].file.play();
+      element.play();
       this.ref.detectChanges();
     } else {
       if (sentence.soundfile_path) {
-        const file: MediaObject = this.media.create(this.appParams.makeStaticUrl(sentence.soundfile_path));
-        file.onSuccess.subscribe(() => {
+        element.src = this.appParams.makeStaticUrl(sentence.soundfile_path);
+        element.onended = () => {
           this.playerStart = true;
-        });
-        file.play();
+        };
+        element.play();
       } else {
         this.playerStart = true;
       }
@@ -189,16 +193,17 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
 
   }
 
-  playSentenceWord(el, word) {
+  playSentenceWord(el, word, element) {
+    console.log(word);
     if (!word.soundfile_path) {
         return false;
     }
 
-    const file: MediaObject = this.media.create(this.appParams.makeStaticUrl(word.soundfile_path));
-    file.onSuccess.subscribe(() => {
+    element.src = this.appParams.makeStaticUrl(word.soundfile_path);
+    element.onended = () => {
       el.classList.remove('text-danger');
-    });
-    file.play();
+    };
+    element.play();
     el.classList.add('text-danger');
   }
 }

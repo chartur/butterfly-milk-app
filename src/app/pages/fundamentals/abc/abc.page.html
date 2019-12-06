@@ -13,7 +13,7 @@
     <app-refresher></app-refresher>
     <ion-grid>
         <ion-row *ngFor="let alp of alphabet">
-            <ion-col *ngFor="let a of alp" (click)="clickOnLetter(a)">
+            <ion-col size="4" *ngFor="let a of alp" (click)="clickOnLetter(a)">
                 <ion-card>
                   <img [src]="appParams.makeStaticUrl('images/alphabet/' + a + '.png')">
                 </ion-card>

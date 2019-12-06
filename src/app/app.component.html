@@ -1,13 +1,13 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu *ngIf="loggedIn">
+    <ion-menu *ngIf="loggedIn" [swipeGesture]="studentsScrolling">
       <ion-header>
         <ion-toolbar>
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <ion-title>Menu</ion-title>
             </div>
-            <div class="student-selection-list flex-grow-1 mr-2">
+            <div class="student-selection-list flex-grow-1 mr-2" (touchstart)="studentsScrollFunc(false)" (touchend)="studentsScrollFunc(true)">
               <div class="student-selection mr-1" [ngClass]="{'active': stu.id == appParams.getDataFromStorage('student')}" (click)="chooseStudent(stu)" *ngFor="let stu of students" [ngStyle]="{'background-image': 'url(' + (!!stu.main_image ? appParams.makeStaticUrl(stu.main_image.path) : appParams.avatar()) + ')'}"></div>
             </div>
           </div>
@@ -25,13 +25,6 @@
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
-
-      <ion-footer>
-        <ion-item (click)="logoutConfirmation()">
-          <ion-icon slot="start" name="log-out"></ion-icon>
-          <ion-label>Log Out</ion-label>
-        </ion-item>
-      </ion-footer>
     </ion-menu>
 
     <ion-router-outlet main>

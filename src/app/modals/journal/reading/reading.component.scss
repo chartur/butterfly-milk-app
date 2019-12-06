@@ -1,0 +1,9 @@
+.book-thumbnail{
+  flex-basis: 100%;
+  margin: 2px;
+  max-width: 32%;
+
+  &.active {
+    border: 3px solid var(--ion-color-primary) !important;
+  }
+}

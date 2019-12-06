@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 import {AlertController, NavController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -21,6 +22,8 @@ export class AppComponent {
   students: any[] = [];
   loggedIn: boolean;
   appParams = AppParams;
+  isAndroid: boolean;
+  studentsScrolling = true;
 
   constructor(
     private platform: Platform,
@@ -29,32 +32,52 @@ export class AppComponent {
     private authService: AuthService,
     private studentService: StudentService,
     private handlerService: HandleService,
-    public alertController: AlertController,
-    public menuCtrl: MenuController,
     private navCtrl: NavController,
     private router: Router,
     private photoViewer: PhotoViewer,
-    private handler: HandleService,
+    private fcm: FCM,
   ) {
     this.initializeApp();
-    this.makeSideBar();
     this.authService.loggedEvent.subscribe((res) => this.makeSideBar());
     this.handlerService.loggedEvent.subscribe((res) => this.makeSideBar());
   }
 
   initializeApp() {
-    this.platform.ready().then(async () => {
-      this.menuCtrl.get().then((menu: HTMLIonMenuElement) => {
-        menu.swipeGesture = false;
-      });
-      const request: any = await this.handlerService.run(this.studentService.getStudents());
-      this.students = request.data.students;
+    this.isAndroid = this.platform.is('android');
+    this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.makeSideBar();
+      // this.initNotification();
     });
   }
 
+  async getStudents() {
+    const request: any = await this.handlerService.run(this.studentService.getStudents());
+    this.students = request.data.students;
+  }
 
+  initNotification() {
+    this.fcm.subscribeToTopic('people');
+
+    this.fcm.getToken().then(token => {
+      this.authService.storItem('fcmToken', token);
+    });
+
+    this.fcm.onNotification().subscribe((data: any) => {
+      if (data.wasTapped) {
+        console.log('Received in background');
+      } else {
+        console.log('Received in foreground');
+      }
+    });
+
+    this.fcm.onTokenRefresh().subscribe(token => {
+      this.authService.storItem('fcmToken', token);
+    });
+
+    this.fcm.unsubscribeFromTopic('people');
+  }
 
   chooseStudent(student: any) {
     const currentStudent = this.appParams.getDataFromStorage('student');
@@ -97,28 +120,14 @@ export class AppComponent {
           icon: 'paper'
         }
       ];
+
+      this.getStudents();
     }
   }
 
-  async logoutConfirmation() {
-    this.menuCtrl.close();
-    const alert = await this.alertController.create({
-      header: 'Logout',
-      message: 'Are you  sure you want to log out?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary'
-        }, {
-          text: 'Yes',
-          handler: () => {
-            this.authService.logOut();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
+  studentsScrollFunc(status: boolean) {
+    this.studentsScrolling = status;
   }
+
+
 }

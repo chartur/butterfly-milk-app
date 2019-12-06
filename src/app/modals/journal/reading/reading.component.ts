@@ -11,11 +11,13 @@ export class ReadingComponent implements OnInit {
 
   appParams = AppParams;
   @Input() book: any;
+  currentActiveImageSource: string;
   constructor(
       public navParams: NavParams,
       public modalController: ModalController,
   ) {
     this.book = navParams.get('book');
+    this.currentActiveImageSource = this.book.picture_path ? this.appParams.makeStaticUrl(this.book.picture_path) : this.appParams.noImagePng();
   }
 
   ngOnInit() {

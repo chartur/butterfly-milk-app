@@ -38,7 +38,7 @@
             <ion-item *ngIf="!viewType">
               <ion-label>Letter</ion-label>
               <ion-select value="" formControlName="letter" (ionChange)="submitForm()" okText="Select" cancelText="Close">
-                <ion-select-option value="" selected>Select Date</ion-select-option>
+                <ion-select-option value="" selected>Select Letter</ion-select-option>
                 <ion-select-option value="{{ alp }}" *ngFor="let alp of params.genCharArray('A','Z')">{{ alp }}</ion-select-option>
               </ion-select>
             </ion-item>
