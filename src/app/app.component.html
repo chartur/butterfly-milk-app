@@ -3,13 +3,8 @@
     <ion-menu *ngIf="loggedIn" [swipeGesture]="studentsScrolling">
       <ion-header>
         <ion-toolbar>
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <ion-title>Menu</ion-title>
-            </div>
-            <div class="student-selection-list flex-grow-1 mr-2" (touchstart)="studentsScrollFunc(false)" (touchend)="studentsScrollFunc(true)">
-              <div class="student-selection mr-1" [ngClass]="{'active': stu.id == appParams.getDataFromStorage('student')}" (click)="chooseStudent(stu)" *ngFor="let stu of students" [ngStyle]="{'background-image': 'url(' + (!!stu.main_image ? appParams.makeStaticUrl(stu.main_image.path) : appParams.avatar()) + ')'}"></div>
-            </div>
+          <div class="student-selection-list ml-2 mr-2" (touchstart)="studentsScrollFunc(false)" (touchend)="studentsScrollFunc(true)">
+            <div class="student-selection mr-1" [ngClass]="{'active': stu.id == appParams.getDataFromStorage('student')}" (click)="chooseStudent(stu)" *ngFor="let stu of students" [ngStyle]="{'background-image': 'url(' + (!!stu.main_image ? appParams.makeStaticUrl(stu.main_image.path) : appParams.avatar()) + ')'}"></div>
           </div>
         </ion-toolbar>
       </ion-header>
