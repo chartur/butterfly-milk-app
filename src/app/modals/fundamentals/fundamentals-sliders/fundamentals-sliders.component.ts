@@ -37,8 +37,9 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
   }
 
   async slideChanged(wordSlide: IonSlides, setIndex: number) {
-    if (this.playerStart) {
-      return false;
+    if (!this.playerStart) {
+        this.HTML = false;
+        this.playerStart = true;
     }
     const loading = await this.loadingPref.make();
     loading.present();
@@ -97,6 +98,9 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
   }
 
   makePlayer(timing: number, data: any, item: any, element) {
+    if (this.playerStart) {
+      return false;
+    }
     if (data.syllables.length) {
       element.src = data.syllables[0].file
       element.onended = () => {

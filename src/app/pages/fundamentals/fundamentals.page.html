@@ -13,57 +13,66 @@
 <ion-content>
   <app-refresher></app-refresher>
 
-  <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/abc">
-    <ion-card-header class="ios hydrated text-center">
-      <ion-card-title role="heading" aria-level="2" class="ios hydrated">ABC</ion-card-title>
-    </ion-card-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/abc">
+          <ion-card-header class="ios hydrated text-center">
+            <ion-card-title role="heading" aria-level="2" class="ios hydrated">ABC</ion-card-title>
+          </ion-card-header>
 
-    <ion-img [src]="indexPage.abc ? appParams.makeStaticUrl(indexPage.abc.words.picture_path) : appParams.noImagePng()"></ion-img>
+          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.abc ? "url(" + appParams.makeStaticUrl(indexPage.abc.words.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
 
-    <ion-card-content class="ios card-content-ios hydrated">
-      <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center" [innerHTML]="indexPage.abc ? indexPage.abc.words.html : ''"></ion-card-subtitle>
-    </ion-card-content>
-  </ion-card>
+          <ion-card-content class="ios card-content-ios hydrated">
+            <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center" [innerHTML]="indexPage.abc ? indexPage.abc.words.html : ''"></ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/combinations">
+          <ion-card-header class="ios hydrated text-center">
+            <ion-card-title role="heading" aria-level="2" class="ios hydrated">Combinations</ion-card-title>
+          </ion-card-header>
 
-  <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/combinations">
-    <ion-card-header class="ios hydrated text-center">
-      <ion-card-title role="heading" aria-level="2" class="ios hydrated">Combinations</ion-card-title>
-    </ion-card-header>
+          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.abc ? "url(" + appParams.makeStaticUrl(indexPage.combinations.words.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
 
-    <ion-img [src]="indexPage.combinations ? appParams.makeStaticUrl(indexPage.combinations.words.picture_path) : appParams.noImagePng()"></ion-img>
+          <ion-card-content class="ios card-content-ios hydrated">
+            <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center" [innerHTML]="indexPage.combinations ? indexPage.combinations.words.html : ''"></ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/syllables">
+          <ion-card-header class="ios hydrated text-center">
+            <ion-card-title role="heading" aria-level="2" class="ios hydrated">Syllables</ion-card-title>
+          </ion-card-header>
 
-    <ion-card-content class="ios card-content-ios hydrated">
-      <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center" [innerHTML]="indexPage.combinations ? indexPage.combinations.words.html : ''"></ion-card-subtitle>
-    </ion-card-content>
-  </ion-card>
+          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.abc ? "url(" + appParams.makeStaticUrl(indexPage.syllables.words.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
 
-  <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/syllables">
-    <ion-card-header class="ios hydrated text-center">
-      <ion-card-title role="heading" aria-level="2" class="ios hydrated">Syllables</ion-card-title>
-    </ion-card-header>
+          <ion-card-content class="ios card-content-ios hydrated">
+            <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center">
+              <span *ngIf="indexPage.syllables">{{ indexPage.syllables.words.word }}</span>
+            </ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/sight-words">
+          <ion-card-header class="ios hydrated text-center">
+            <ion-card-title role="heading" aria-level="2" class="ios hydrated">Sight Words</ion-card-title>
+          </ion-card-header>
 
-    <ion-img [src]="indexPage.syllables ? appParams.makeStaticUrl(indexPage.syllables.words.picture_path) : appParams.noImagePng()"></ion-img>
+          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.abc ? "url(" + appParams.makeStaticUrl(indexPage.sightWords.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
 
-    <ion-card-content class="ios card-content-ios hydrated">
-      <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center">
-        <span *ngIf="indexPage.syllables">{{ indexPage.syllables.words.word }}</span>
-      </ion-card-subtitle>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated" routerLink="/fundamentals/sight-words">
-    <ion-card-header class="ios hydrated text-center">
-      <ion-card-title role="heading" aria-level="2" class="ios hydrated">Sight Words</ion-card-title>
-    </ion-card-header>
-
-    <ion-img [src]="indexPage.sightWords ? (indexPage.sightWords.picture_path ? appParams.makeStaticUrl(indexPage.sightWords.picture_path) : appParams.noImagePng()) : appParams.noImagePng()"></ion-img>
-
-    <ion-card-content class="ios card-content-ios hydrated">
-      <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center">
-        <span *ngIf="indexPage.sightWords">{{ indexPage.sightWords.title }}</span>
-      </ion-card-subtitle>
-    </ion-card-content>
-  </ion-card>
+          <ion-card-content class="ios card-content-ios hydrated">
+            <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center">
+              <span *ngIf="indexPage.sightWords">{{ indexPage.sightWords.title }}</span>
+            </ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 

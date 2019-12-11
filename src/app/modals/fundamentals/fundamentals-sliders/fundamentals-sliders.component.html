@@ -1,6 +1,6 @@
 <ion-content fullscreen align-items-center>
   <audio #soundPlayerTag></audio>
-  <ion-slides class="pb-5" [ngClass]="{'swiper-no-swiping': !playerStart}" #wordSlide pager="true"  [options]="slideOpts" (ionSlideWillChange)="slideChanged(wordSlide)" *ngIf="items.length; else noWords">
+  <ion-slides class="pb-5" #wordSlide pager="true"  [options]="slideOpts" (ionSlideWillChange)="slideChanged(wordSlide)" *ngIf="items.length; else noWords">
     <ion-slide *ngFor="let item of items">
       <div class="d-flex justify-content-center align-items-center w-100 fundamental-slider-container">
         <div class="fundamental-slider-item">
@@ -16,7 +16,7 @@
                       <ion-icon name="volume-high"></ion-icon>
                     </ion-button>
                   </div>
-                  <div class="flex-grow-1" *ngIf="fullSentencePlay else playPartOfSentence" [innerHTML]="sentence.html"></div>
+                  <div class="flex-grow-1" *ngIf="fullSentencePlay; else playPartOfSentence" [innerHTML]="sentence.html"></div>
                   <ng-template #playPartOfSentence>
                     <div class="flex-grow-1">
                         <span #sentenceWord (click)="playSentenceWord(sentenceWord, sW, soundPlayerTag)" *ngFor="let sW of sentence.words" [ngClass]="sW.word.toLowerCase().trim() === item.word.toLowerCase().trim() ? 'science-word' : ''" class="d-inline-block mr-1">{{ sW.word }}</span>

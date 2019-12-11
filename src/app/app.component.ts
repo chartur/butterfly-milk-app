@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { FCM } from '@ionic-native/fcm/ngx';
+// import { FCM } from '@ionic-native/fcm/ngx';
 
 import {AlertController, NavController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {AuthService} from './services/auth.service';
 import {HandleService} from './services/handle.service';
-import { MenuController } from '@ionic/angular';
 import {StudentService} from './services/student.service';
 import AppParams from './params';
 import {Router} from '@angular/router';
@@ -35,7 +34,7 @@ export class AppComponent {
     private navCtrl: NavController,
     private router: Router,
     private photoViewer: PhotoViewer,
-    private fcm: FCM,
+    // private fcm: FCM,
   ) {
     this.initializeApp();
     this.authService.loggedEvent.subscribe((res) => this.makeSideBar());
@@ -57,27 +56,27 @@ export class AppComponent {
     this.students = request.data.students;
   }
 
-  initNotification() {
-    this.fcm.subscribeToTopic('people');
-
-    this.fcm.getToken().then(token => {
-      this.authService.storItem('fcmToken', token);
-    });
-
-    this.fcm.onNotification().subscribe((data: any) => {
-      if (data.wasTapped) {
-        console.log('Received in background');
-      } else {
-        console.log('Received in foreground');
-      }
-    });
-
-    this.fcm.onTokenRefresh().subscribe(token => {
-      this.authService.storItem('fcmToken', token);
-    });
-
-    this.fcm.unsubscribeFromTopic('people');
-  }
+  // initNotification() {
+  //   this.fcm.subscribeToTopic('people');
+  //
+  //   this.fcm.getToken().then(token => {
+  //     this.authService.storItem('fcmToken', token);
+  //   });
+  //
+  //   this.fcm.onNotification().subscribe((data: any) => {
+  //     if (data.wasTapped) {
+  //       console.log('Received in background');
+  //     } else {
+  //       console.log('Received in foreground');
+  //     }
+  //   });
+  //
+  //   this.fcm.onTokenRefresh().subscribe(token => {
+  //     this.authService.storItem('fcmToken', token);
+  //   });
+  //
+  //   this.fcm.unsubscribeFromTopic('people');
+  // }
 
   chooseStudent(student: any) {
     const currentStudent = this.appParams.getDataFromStorage('student');
