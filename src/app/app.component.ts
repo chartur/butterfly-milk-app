@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 // import { FCM } from '@ionic-native/fcm/ngx';
 
-import {AlertController, NavController, Platform} from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {AuthService} from './services/auth.service';
@@ -52,8 +52,12 @@ export class AppComponent {
   }
 
   async getStudents() {
-    const request: any = await this.handlerService.run(this.studentService.getStudents());
-    this.students = request.data.students;
+    try {
+      const request: any = await this.handlerService.run(this.studentService.getStudents());
+      this.students = request.data.students;
+    } catch (e) {
+      this.handlerService.presentAlert(e.error.message, e);
+    }
   }
 
   // initNotification() {
@@ -119,8 +123,6 @@ export class AppComponent {
           icon: 'paper'
         }
       ];
-
-      this.getStudents();
     }
   }
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "671745959428",
+    "firebase_url": "https://butterfly-milk.firebaseio.com",
+    "project_id": "butterfly-milk",
+    "storage_bucket": "butterfly-milk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671745959428:android:e598dd9d55a7cf87f73751",
+        "android_client_info": {
+          "package_name": "am.coderiders.butterfly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671745959428-9nt1an4g64oklfbiqf1b38agk7842d3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCgm7KflHuqDKZj06atpnNVvKa2Hqlvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671745959428-9nt1an4g64oklfbiqf1b38agk7842d3h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
