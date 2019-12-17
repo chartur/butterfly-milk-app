@@ -1,0 +1,23 @@
+ion-content{
+  --background: #fff url('../../../assets/quizzes/quizz-bg.jpg') no-repeat center center / 100%;
+}
+.quiz-clouds{
+  width: 150px
+}
+.bottom-part {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.children-image{
+  width: 150px
+}
+.quiz-monsters{
+  width: 100px;
+
+  &.locked{
+    filter: blur(6px);
+    -webkit-filter: blur(6px);
+  }
+}

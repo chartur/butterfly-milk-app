@@ -1,6 +1,8 @@
 .form-of-word{
-  background: var(--ion-color-primary);
-  padding: 5px 7px;
-  border-radius: 5px;
-  color: #fff;
+  color: #3e8884;
+  font-weight: bold;
+  font-size: 18px;
+}
+.form-of-word:not(:last-child)::after{
+  content: ', ';
 }

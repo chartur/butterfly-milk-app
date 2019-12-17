@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'fundamentals/syllables', loadChildren: './pages/fundamentals/syllables/syllables.module#SyllablesPageModule' },
   { path: 'books', loadChildren: './pages/books/books.module#BooksPageModule' },
   { path: 'dictionary', loadChildren: './pages/dictionary/dictionary.module#DictionaryPageModule' },
+  { path: 'quizzes', loadChildren: './pages/quizzes/quizzes.module#QuizzesPageModule' },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
   { path: 'notification', loadChildren: './pages/notification/notification.module#NotificationPageModule', canActivate: [AuthMiddleware] },
 ];

@@ -34,7 +34,7 @@
             <ion-card-title role="heading" aria-level="2" class="ios hydrated">Combinations</ion-card-title>
           </ion-card-header>
 
-          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.abc ? "url(" + appParams.makeStaticUrl(indexPage.combinations.words.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
+          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.combinations ? "url(" + appParams.makeStaticUrl(indexPage.combinations.words.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
 
           <ion-card-content class="ios card-content-ios hydrated">
             <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center" [innerHTML]="indexPage.combinations ? indexPage.combinations.words.html : ''"></ion-card-subtitle>
@@ -47,7 +47,7 @@
             <ion-card-title role="heading" aria-level="2" class="ios hydrated">Syllables</ion-card-title>
           </ion-card-header>
 
-          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.abc ? "url(" + appParams.makeStaticUrl(indexPage.syllables.words.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
+          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.syllables ? "url(" + appParams.makeStaticUrl(indexPage.syllables.words.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
 
           <ion-card-content class="ios card-content-ios hydrated">
             <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center">
@@ -62,7 +62,7 @@
             <ion-card-title role="heading" aria-level="2" class="ios hydrated">Sight Words</ion-card-title>
           </ion-card-header>
 
-          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.abc ? "url(" + appParams.makeStaticUrl(indexPage.sightWords.picture_path) + ")" : "url(" + appParams.noImagePng() + ")"}'></div>
+          <div class="fundamental-item-image" [ngStyle]='{backgroundImage: indexPage.sightWords ? (indexPage.sightWords.picture_path ? "url(" + appParams.makeStaticUrl(indexPage.sightWords.picture_path) + ")" : "url(" + appParams.noImagePng() + ")") : "url(" + appParams.noImagePng() + ")"}'></div>
 
           <ion-card-content class="ios card-content-ios hydrated">
             <ion-card-subtitle role="heading" aria-level="3" class="ios hydrated text-center">

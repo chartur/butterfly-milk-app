@@ -8,7 +8,7 @@ import {AuthService} from './services/auth.service';
 import {HandleService} from './services/handle.service';
 import {StudentService} from './services/student.service';
 import AppParams from './params';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {PhotoViewer} from '@ionic-native/photo-viewer/ngx';
 
 
@@ -23,6 +23,8 @@ export class AppComponent {
   appParams = AppParams;
   isAndroid: boolean;
   studentsScrolling = true;
+
+  navLinksArray: string[] = [];
 
   constructor(
     private platform: Platform,
@@ -48,6 +50,36 @@ export class AppComponent {
       this.splashScreen.hide();
       this.makeSideBar();
       // this.initNotification();
+    });
+    this.registerNavigationChanges();
+    this.hardwareBackButton();
+  }
+
+  registerNavigationChanges() {
+    this.router.events.subscribe(event => {
+      const url = this.router.url;
+      if (event instanceof NavigationEnd) {
+        const isCurrentUrlSaved = this.navLinksArray.find((item) => {
+          return (item === url);
+        });
+
+        if (!isCurrentUrlSaved) {
+          this.navLinksArray.push(url);
+        }
+      }
+    });
+  }
+
+  hardwareBackButton() {
+    this.platform.backButton.subscribe(() => {
+      if (this.navLinksArray.length > 1) {
+        this.navLinksArray.pop();
+        const index = this.navLinksArray.length - 1;
+        const url = this.navLinksArray[index];
+        this.navCtrl.navigateRoot(url);
+      } else {
+        navigator.app.exitApp();
+      }
     });
   }
 
@@ -121,6 +153,11 @@ export class AppComponent {
           title: 'Reading Fundamentals',
           url: '/fundamentals',
           icon: 'paper'
+        },
+        {
+          title: 'Quizzes',
+          url: '/quizzes',
+          icon: 'logo-game-controller-b'
         }
       ];
     }

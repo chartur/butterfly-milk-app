@@ -21,16 +21,16 @@
       <ion-img [src]="word.word.picture_path ? appParams.makeStaticUrl(word.word.picture_path) : appParams.noImagePng()"></ion-img>
     </div>
     <div class="card-footer" *ngIf="word.word.meaning || word.word.example_sentence || word.word.forms">
-      <div class="d-flex justify-content-start" *ngIf="word.word.meaning">
+      <div class="font-italic" *ngIf="word.word.forms">
+        <span *ngFor="let form of word.word.forms" class="form-of-word mr-2 mt-2 d-inline-block">{{ form.title }}</span>
+      </div>
+      <div class="d-flex justify-content-start mt-3" *ngIf="word.word.meaning">
         <div class="font-weight-bold mr-3" style="font-size: 20px">Meaning</div>
         <div class="font-italic">{{ word.word.meaning }}</div>
       </div>
       <div class="d-flex justify-content-start mt-3" *ngIf="word.word.example_sentence">
         <div class="font-weight-bold mr-3"  style="font-size: 20px">Example</div>
         <div class="font-italic">{{ word.word.example_sentence }}</div>
-      </div>
-      <div class="font-italic mt-3">
-        <span *ngFor="let form of word.word.forms" class="form-of-word mr-2 mt-2 d-inline-block">{{ form.title }}</span>
       </div>
     </div>
   </div>

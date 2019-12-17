@@ -16,7 +16,7 @@ export class TabsPage implements OnInit{
     // this tells the tabs component which Pages
     // should be each tab's root Page
 
-    @Input() loggedIn: boolean;
+    @Input('show') show: boolean;
 
 
 
@@ -80,5 +80,9 @@ export class TabsPage implements OnInit{
         }
 
         loading.dismiss();
+    }
+
+    toogleTabs(status: boolean) {
+        this.show = status;
     }
 }
