@@ -40,7 +40,7 @@ export class HomePage extends RouterPage implements OnDestroy {
 
   async getLessons() {
     try {
-      const request: any = await await this.handler.run(this.journalService.getStudentLessonsByStudent());
+      const request: any = await this.handler.run(this.journalService.getStudentLessonsByStudent());
       this.lessons = request.lessons;
     } catch (e) {
       this.handler.presentAlert(e.error.message, e);

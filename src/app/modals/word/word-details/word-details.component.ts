@@ -47,7 +47,6 @@ export class WordDetailsComponent implements OnInit {
     try {
       const request: any = await this.handler.run(this.dictionaryService.getWordDetails(this.wordId));
       this.word = request.word;
-      console.log(this.word);
     } catch (e) {
       this.handler.presentAlert(e.error.message, e);
     }
@@ -62,7 +61,6 @@ export class WordDetailsComponent implements OnInit {
   }
 
   readWord(word: any, audioElement, onlyFullSound: boolean = false) {
-    console.log(word);
     const timing = word.timing * 1000;
     const mainWord = word.word;
     if (!word.soundfile_path) {

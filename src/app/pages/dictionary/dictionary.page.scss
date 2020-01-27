@@ -1,0 +1,18 @@
+.dictionary-type-buttons{
+  font-size: 12px;
+  --background: var(--ion-color-secondary)!important;
+  color: #fff;
+  &.button-shadow{
+    box-shadow: 0px 0px 15px 0px #000;
+    --background: #fcc38c!important;
+  }
+}
+
+.new-word:after {
+  content: "new";
+  vertical-align: super;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 5px;
+  color: var(--ion-color-primary)
+}

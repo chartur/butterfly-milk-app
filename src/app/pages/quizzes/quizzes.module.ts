@@ -9,6 +9,7 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import { IonicModule } from '@ionic/angular';
 
 import { QuizzesPage } from './quizzes.page';
+import {ModalsModule} from '../../modals/modals.module';
 
 const routes: Routes = [
   {
@@ -22,12 +23,15 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ModalsModule,
     RouterModule.forChild(routes)
   ],
   providers: [
     ScreenOrientation,
     AndroidFullScreen
   ],
-  declarations: [QuizzesPage]
+  declarations: [
+      QuizzesPage,
+  ],
 })
 export class QuizzesPageModule {}

@@ -18,7 +18,7 @@ import {WordDetailsComponent} from '../../modals/word/word-details/word-details.
 export class DictionaryPage extends RouterPage implements OnInit, OnDestroy {
 
   params = AppParams;
-  viewType = true;
+  viewType = false;
   words: any[] = [];
   years: string[] = [];
   staticCount: number;
@@ -46,7 +46,7 @@ export class DictionaryPage extends RouterPage implements OnInit, OnDestroy {
     const loading = await this.loadingPref.make();
     loading.present();
 
-    this.staticCount = 4;
+    this.staticCount = 10;
     this.page = 1;
     this.words = [];
     this.submitForm();
@@ -54,8 +54,7 @@ export class DictionaryPage extends RouterPage implements OnInit, OnDestroy {
     loading.dismiss();
   }
 
-  ngOnInit() {
-    this.months = moment.months();
+  ngOnInit(): void {
   }
 
   async submitForm() {
@@ -65,6 +64,8 @@ export class DictionaryPage extends RouterPage implements OnInit, OnDestroy {
       this.searchForm.controls.month.setValue('') ;
       this.searchForm.controls.year.setValue('') ;
     }
+
+    !this.searchForm.controls.year.value ? this.searchForm.controls.month.disable() : this.searchForm.controls.month.enable();
 
     const data = this.searchForm.value;
     data.page = this.page;
@@ -76,6 +77,19 @@ export class DictionaryPage extends RouterPage implements OnInit, OnDestroy {
       this.years = request.years;
       this.globalCount = request.count;
       this.words = request.words;
+    } catch (e) {
+      this.handler.presentAlert(e.error.message, e);
+    }
+  }
+
+  async getStudentDictionaryMonths() {
+    try {
+      this.searchForm.controls.month.setValue('');
+      const year = this.searchForm.controls.year.value;
+      const studentMonths: any = await this.handler.run(this.dictionaryService.getStudentMonthOfDictionaryByYear(year));
+      this.months = studentMonths.map((month) => {
+        return { index: month, name: moment.months(month - 1)};
+      });
     } catch (e) {
       this.handler.presentAlert(e.error.message, e);
     }

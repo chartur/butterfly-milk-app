@@ -78,7 +78,7 @@ export class AppComponent {
         const url = this.navLinksArray[index];
         this.navCtrl.navigateRoot(url);
       } else {
-        navigator.app.exitApp();
+          navigator['app'].exitApp();
       }
     });
   }

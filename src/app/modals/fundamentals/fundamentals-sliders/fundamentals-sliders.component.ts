@@ -129,7 +129,6 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
   }
 
   sentenceFullReader(sentence: any, element) {
-    console.log(sentence);
     if (!this.playerStart) {
       return false;
     }
@@ -198,7 +197,6 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
   }
 
   playSentenceWord(el, word, element) {
-    console.log(word);
     if (!word.soundfile_path) {
         return false;
     }

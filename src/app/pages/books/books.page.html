@@ -32,13 +32,13 @@
       <ngx-datatable-column name="Level" width="50" prop="book.level"></ngx-datatable-column>
       <ngx-datatable-column name="Name" prop="book.title"></ngx-datatable-column>
 
-      <ngx-datatable-column name="Due Date">
+      <ngx-datatable-column name="Due Date" width="90">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row.shouldReturn | date:'dd/MM/yy'}}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Status" sortable="false">
+      <ngx-datatable-column name="Status" width="80" sortable="false">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <div *ngIf="row.status === 1">
             <span class="text-danger">Overdue</span>

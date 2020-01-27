@@ -66,4 +66,34 @@ ion-infinite-scroll:not(.active) .icon:before {
 .side-menu-item.active .item-icon{
   color: #fff!important;
 }
+app-main-quiz{
+  .swiper-content{
+    overflow: visible!important;
+  }
+  .swiper-pagination.swiper-pagination-custom {
+    bottom: -20px!important;
+  }
+  .slider-custom-pagination-item{
+    display: inline-block;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    background: var(--ion-color-secondary);
+
+    &.missed{
+      background: var(--ion-color-danger);
+    }
+
+    &.done{
+      background: var(--ion-color-success);
+    }
+    &.current {
+      background: var(--ion-color-primary);
+    }
+  }
+}
 

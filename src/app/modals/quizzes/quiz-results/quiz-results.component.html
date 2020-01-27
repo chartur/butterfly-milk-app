@@ -1,0 +1,46 @@
+<ion-buttons class="modal-close-button position-absolute" style="right: 4px; top: 4px" (click)="dismiss()" slot="end">
+  <ion-icon name="close"></ion-icon>
+</ion-buttons>
+<ion-content fullscreen>
+  <div class="pt-5">
+    <div class="table-responsive">
+      <ngx-datatable
+              [rows]="results"
+              ngClass="bootstrap"
+              rowHeight="auto"
+              headerHeight="50"
+              [rowClass]="getRowClass"
+              [scrollbarH]="true"
+              [sorts]="false"
+      >
+
+        <ngx-datatable-column  name="ID" width="40">
+          <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+            {{rowIndex + 1}}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column  name="Question" width="250">
+          <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+            <div class="card">
+              <div class="card-header" *ngIf="row.longDesc">
+                {{ row.longDesc }}
+              </div>
+              <div class="card-body text-center" *ngIf="row.questionImage">
+                <img style="max-height: 60px" [src]="appParams.makeStaticUrl(row.questionImage)">
+              </div>
+              <div class="card-footer text-center" *ngIf="row.partOfAnswer">
+                {{ row.partOfAnswer }}
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Answer Given" prop="givenAnswer.answer"></ngx-datatable-column>
+        <ngx-datatable-column name="Correct Answer" prop="correctAnswer.answer"></ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</ion-content>
+
+

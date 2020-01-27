@@ -23,4 +23,9 @@ export class DictionaryService {
     const studentId = this.params.getDataFromStorage('student');
     return this.http.post(this.params.makeUrl(this.params.urls.dictionary.makeWordAsViewed, {wordId, studentId}), true);
   }
+
+  getStudentMonthOfDictionaryByYear(year: number) {
+    const studentId = this.params.getDataFromStorage('student');
+    return this.http.get(this.params.makeUrl(this.params.urls.dictionary.getStudentMonthOfDictionaryByYear, {year, studentId}));
+  }
 }

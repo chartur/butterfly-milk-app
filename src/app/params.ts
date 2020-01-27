@@ -1,9 +1,9 @@
 const AppParams = {
     // domain: 'http://192.168.1.6:8080/',
-    // mainUrl: 'http://192.168.1.6:8080/api/',
+    mainUrl: 'http://192.168.1.6:8080/api/',
 
     domain: 'http://5.189.134.90:8088/',
-    mainUrl: 'http://5.189.134.90:8088/api/',
+    // mainUrl: 'http://5.189.134.90:8088/api/',
     makeUrl(url, data ?: {}): string {
         let u = new URL(this.mainUrl + url);
         const token = localStorage.getItem('auth_token');
@@ -62,6 +62,7 @@ const AppParams = {
             getStudentBooks: 'books/get-student-books'
         },
         dictionary: {
+            getStudentMonthOfDictionaryByYear: 'dictionary/get-student-dictionary-months',
             getDictionaryWords: 'dictionary/search',
             getWordDetails: 'dictionary/word-details',
             makeWordAsViewed: 'dictionary/word-viewed'
@@ -74,6 +75,13 @@ const AppParams = {
             getSyllablesByCount: 'fundamentals/get-syllable-words',
             getSightWordsBooks: 'fundamentals/get-sight-words-books',
             getWordsOfBookById: 'fundamentals/get-words-of-book',
+        },
+        quiz: {
+            getFundamentalQuizzes: 'quiz/get-fundamentals',
+            getQuizDataById: 'quiz/get-quiz-data/:quizId',
+            getQuizStartData: 'quiz/get-quiz-start-data/:quizId',
+            getQuizEndData: 'quiz/get-quiz-end-data/:quizId',
+            submitQuiz: 'quiz/submit-quiz-data/:quizId',
         },
         settings: {
             updatePassword: 'settings/update-password'
