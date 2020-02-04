@@ -1,14 +1,16 @@
 <ion-content fullscreen>
   <div class="top-part">
-    <div class="d-flex justify-content-between align-items-center p-2">
+    <div class="d-flex justify-content-between align-items-center p-2" *ngIf="topQuizzes">
       <div class="exit-door" routerLink="/home">
         <ion-img src="./assets/quizzes/door_half_open.png" width="100%"></ion-img>
       </div>
-      <div class="quiz-clouds">
-        <ion-img src="./assets/quizzes/dictionary-cloud.png"></ion-img>
+      <div class="quiz-clouds text-center position-relative" *ngIf="topQuizzes" (click)="openTopQuiz(topQuizzes.dictionary)">
+        <ion-img src="{{ appParams.makeStaticUrl(topQuizzes.dictionary.quizImage) }}"></ion-img>
+        <span class="d-block w-100 font-weight-bold position-absolute" style="bottom: 5%">Dictionary</span>
       </div>
-      <div class="quiz-clouds">
-        <ion-img src="./assets/quizzes/book-quiz-cloud.png"></ion-img>
+      <div class="quiz-clouds text-center position-relative" *ngIf="topQuizzes" (click)="openTopQuiz(topQuizzes.bookQuiz)">
+        <ion-img src="{{ appParams.makeStaticUrl(topQuizzes.bookQuiz.quizImage) }}"></ion-img>
+        <span class="d-block w-100 font-weight-bold position-absolute" style="bottom: 5%">Book Quiz</span>
       </div>
     </div>
   </div>

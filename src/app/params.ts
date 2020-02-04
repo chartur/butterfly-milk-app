@@ -78,6 +78,7 @@ const AppParams = {
         },
         quiz: {
             getFundamentalQuizzes: 'quiz/get-fundamentals',
+            getTopQuizzes: 'quiz/get-top-quizzes',
             getQuizDataById: 'quiz/get-quiz-data/:quizId',
             getQuizStartData: 'quiz/get-quiz-start-data/:quizId',
             getQuizEndData: 'quiz/get-quiz-end-data/:quizId',

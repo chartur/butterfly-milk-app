@@ -18,6 +18,11 @@ export class QuizzesService {
     return this.http.get(this.appParams.makeUrl(this.appParams.urls.quiz.getFundamentalQuizzes, {studentId}));
   }
 
+  getTopQuizzes() {
+    const studentId = this.appParams.getDataFromStorage('student');
+    return this.http.get(this.appParams.makeUrl(this.appParams.urls.quiz.getTopQuizzes, {studentId}));
+  }
+
   getQuizDataById(quizId: string) {
     const studentId = this.appParams.getDataFromStorage('student');
     return this.http.get(this.appParams.makeUrl(this.appParams.urls.quiz.getQuizDataById.replace(':quizId', quizId), {studentId}));
