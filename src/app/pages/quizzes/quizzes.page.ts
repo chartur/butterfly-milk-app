@@ -100,8 +100,10 @@ export class QuizzesPage extends RouterPage implements OnInit, OnDestroy {
         message: 'This quiz is not available yet.',
         duration: 2000
       });
-      toast.present();
+      return toast.present();
     }
+
+    return this.quizStartConfirmation(quiz.id);
   }
 
   async quizStartConfirmation(quizId: string) {

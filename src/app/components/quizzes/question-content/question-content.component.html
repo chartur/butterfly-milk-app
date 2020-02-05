@@ -1,8 +1,8 @@
 <div padding>
-  <p class="mt-2 mb-0 mt-2" *ngIf="question.longDesc"> {{ question.longDesc }} </p>
+  <p class="mt-2 mb-0 mt-2" (click)="playAudio()" *ngIf="question.longDesc"> {{ question.longDesc }} </p>
   <div class="d-flex mt-2 justify-content-between align-items-center w-100">
-    <div class="w-50 pr-2">
-      <img  style="max-height: 40vh" *ngIf="question.picture_path" [src]="appParams.makeStaticUrl(question.picture_path)">
+    <div class="w-50 pr-2" (click)="playAudio()">
+      <img  style="max-height: 40vh"  *ngIf="question.picture_path" [src]="appParams.makeStaticUrl(question.picture_path)">
       <div>
         <p class="mt-2 mb-0 part-of-answer" *ngIf="question.partOfAnswer">{{ question.partOfAnswer }}</p>
       </div>
@@ -10,10 +10,11 @@
     <div class="w-50 pl-2">
       <div>
         <p  *ngFor="let answer of question.answers; let i = index" class="mb-0">
-          <ion-button style="text-transform: none!important;" expand="block" [color]="i === checkedAnswerIndex ? 'primary' : 'secondary'" (click)="makeCheckedAnswer(i)"><span>{{ answer.answer }}</span></ion-button>
+          <ion-button class="ion-text-wrap" style="text-transform: none!important;" expand="block" [color]="i === checkedAnswerIndex ? 'primary' : 'secondary'" (click)="makeCheckedAnswer(i)"><span>{{ answer.answer }}</span></ion-button>
         </p>
       </div>
     </div>
   </div>
+  <audio *ngIf="question.soundfile_path" #player [src]="appParams.makeStaticUrl(question.soundfile_path)"></audio>
 </div>
 

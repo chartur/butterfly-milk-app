@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import AppParams from '../../../params';
 
 @Component({
@@ -11,6 +11,7 @@ export class QuestionContentComponent implements OnInit {
   appParams = AppParams;
   checkedAnswerIndex: number = null;
   @Input('question') question: any;
+  @ViewChild('player') player: ElementRef;
 
   @Output('checkedByStudent') checkedByStudent: EventEmitter<any> = new EventEmitter();
 
@@ -20,6 +21,12 @@ export class QuestionContentComponent implements OnInit {
 
   answer() {
 
+  }
+
+  playAudio() {
+    if (this.question.soundfile_path) {
+      this.player.nativeElement.play();
+    }
   }
 
   makeCheckedAnswer(index: number) {
