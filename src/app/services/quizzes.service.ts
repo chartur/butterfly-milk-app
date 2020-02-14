@@ -42,4 +42,8 @@ export class QuizzesService {
     const studentId = this.appParams.getDataFromStorage('student');
     return this.http.post(this.appParams.makeUrl(this.appParams.urls.quiz.submitQuiz.replace(':quizId', quizId), {studentId}), data);
   }
+
+  getMonsterExplosionImage() {
+    return this.http.get(this.appParams.makeUrl(this.appParams.urls.quiz.getMonsterExplosionImage));
+  }
 }

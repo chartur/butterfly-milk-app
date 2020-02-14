@@ -1,6 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { timer } from 'rxjs';
 
+export class TimeNotice {
+  constructor(
+    public minute: number,
+    public className?: string,
+    public styles?: string
+  ){}
+
+}
+
 @Component({
   selector: 'app-quiz-timer',
   templateUrl: './quiz-timer.component.html',
@@ -9,8 +18,12 @@ import { timer } from 'rxjs';
 export class QuizTimerComponent implements OnInit {
 
   @Input('minute') startMinute: number;
+  @Input('notice') danger: TimeNotice;
   @Output('end') endEvent: EventEmitter<any> = new EventEmitter();
   @Output('everySecond') everySecondEvent: EventEmitter<any> = new EventEmitter();
+
+  dangerStyle: string;
+  dangerClassName: string;
 
   private timer;
 
@@ -32,6 +45,10 @@ export class QuizTimerComponent implements OnInit {
             return this.end();
           }
           this.timeToSeconds--;
+          if (this.danger && this.danger.minute && this.timeToSeconds <= this.danger.minute * 60){
+            this.dangerClassName = this.danger.className;
+            this.dangerStyle = this.danger.styles;
+          }
         });
   }
 

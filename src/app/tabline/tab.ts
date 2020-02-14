@@ -6,6 +6,7 @@ import {LoadingPreference} from '../preferences/LoadingPreference';
 import {StudentService} from '../services/student.service';
 import {HandleService} from '../services/handle.service';
 import { NavController } from '@ionic/angular';
+import {TabsServices} from '../services/tabs.services';
 
 @Component({
     selector: 'app-tabs',
@@ -28,7 +29,12 @@ export class TabsPage implements OnInit{
         private studentService: StudentService,
         private handler: HandleService,
         private navCtrl: NavController,
-    ) {}
+        private tabsService: TabsServices,
+    ) {
+        this.tabsService.tabsVisibility.subscribe((status: boolean) => {
+            this.show = status;
+        });
+    }
 
     ngOnInit(): void {
 
@@ -80,9 +86,5 @@ export class TabsPage implements OnInit{
         }
 
         loading.dismiss();
-    }
-
-    toogleTabs(status: boolean) {
-        this.show = status;
     }
 }

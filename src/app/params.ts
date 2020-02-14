@@ -1,6 +1,6 @@
 const AppParams = {
-    // domain: 'http://192.168.1.6:8080/',
-    // mainUrl: 'http://192.168.1.6:8080/api/',
+    // domain: 'http://192.168.17.19:8080/',
+    // mainUrl: 'http://192.168.17.19:8080/api/',
 
     domain: 'http://5.189.134.90:8088/',
     mainUrl: 'http://5.189.134.90:8088/api/',
@@ -78,6 +78,7 @@ const AppParams = {
         },
         quiz: {
             getFundamentalQuizzes: 'quiz/get-fundamentals',
+            getMonsterExplosionImage: 'quiz/get-monster-explosion-image',
             getTopQuizzes: 'quiz/get-top-quizzes',
             getQuizDataById: 'quiz/get-quiz-data/:quizId',
             getQuizStartData: 'quiz/get-quiz-start-data/:quizId',

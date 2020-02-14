@@ -27,4 +27,5 @@
   <div>
     <ion-button expand="full" color="primary" (click)="dismiss(true)">{{ buttonText }}</ion-button>
   </div>
+  <audio #audio *ngIf="quizData.audioFile" [src]="appParams.makeStaticUrl(quizData.audioFile)"></audio>
 </ion-content>

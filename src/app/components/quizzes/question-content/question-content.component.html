@@ -10,11 +10,12 @@
     <div class="w-50 pl-2">
       <div>
         <p  *ngFor="let answer of question.answers; let i = index" class="mb-0">
-          <ion-button class="ion-text-wrap" style="text-transform: none!important;" expand="block" [color]="i === checkedAnswerIndex ? 'primary' : 'secondary'" (click)="makeCheckedAnswer(i)"><span>{{ answer.answer }}</span></ion-button>
+          <ion-button class="ion-text-wrap" style="text-transform: none!important;" expand="block" [color]="i === checkedAnswerIndex ? 'primary' : 'secondary'" (click)="makeCheckedAnswer(i, answer)"><span>{{ answer.answer }}</span></ion-button>
         </p>
       </div>
     </div>
   </div>
   <audio *ngIf="question.soundfile_path" #player [src]="appParams.makeStaticUrl(question.soundfile_path)"></audio>
+  <audio #readAnswer></audio>
 </div>
 

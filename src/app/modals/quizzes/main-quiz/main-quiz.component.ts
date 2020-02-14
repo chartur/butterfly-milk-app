@@ -4,7 +4,7 @@ import {QuizzesService} from '../../../services/quizzes.service';
 import {HandleService} from '../../../services/handle.service';
 import {LoadingPreference} from '../../../preferences/LoadingPreference';
 import {QuizResultsComponent} from '../quiz-results/quiz-results.component';
-import {QuizTimerComponent} from '../../../components/quizzes/quiz-timer/quiz-timer.component';
+import {QuizTimerComponent, TimeNotice} from '../../../components/quizzes/quiz-timer/quiz-timer.component';
 import {QuizStartConfirmationComponent} from '../quiz-start-confirmation/quiz-start-confirmation.component';
 
 @Component({
@@ -31,7 +31,10 @@ export class MainQuizComponent implements OnInit {
   @ViewChild('timerElement') timerElement: QuizTimerComponent;
   questions: any[] = [];
   timer: number;
+  quizMainData: any;
+  timerOptions: TimeNotice = new TimeNotice(3, 'text-danger', );
   @Input('quizId') quizId: string;
+  @Input('passedPosition') passedPosition: number = null;
   constructor(
       public modalController: ModalController,
       private quizzesService: QuizzesService,
@@ -51,6 +54,7 @@ export class MainQuizComponent implements OnInit {
     try {
       const request: any = await this.handler.run(this.quizzesService.getQuizDataById(this.quizId));
       this.questions = request.data.questions;
+      this.quizMainData = request.data.quizMainData;
       this.timer = request.data.time;
       loading.dismiss();
     } catch (e) {
@@ -68,7 +72,7 @@ export class MainQuizComponent implements OnInit {
 
     const alertOption: any = {
       header: 'Submit Quiz',
-      message: !done ? 'Are you sure you want to submit quiz?' : 'You can not submit the quiz, because you have not passed all questions.',
+      message: !done ? 'Are you sure you want to submit quiz?' : 'Quiz cannot be submitted until all questions have been answered.',
       buttons: [
         {
           text: 'Cancel',
@@ -142,7 +146,15 @@ export class MainQuizComponent implements OnInit {
       seeResultModal.onDidDismiss().then(async () => {
         const resultModal = await this.modalController.create({
           component: QuizResultsComponent,
-          componentProps: {results: request}
+          componentProps: {
+            results: request,
+            quizImage: getQuizEndData.resultImageFile,
+            quizAudio: getQuizEndData.resultAudioFile,
+            passed: getQuizEndData.passed,
+            needScope: getQuizEndData.needScope,
+            quizId: this.quizId,
+            passedPosition: this.passedPosition
+          }
         });
         return await resultModal.present();
       });

@@ -8,6 +8,7 @@ import {ModalController} from '@ionic/angular';
 import {ReadingComponent} from '../../modals/journal/reading/reading.component';
 import {WritingComponent} from '../../modals/journal/writing/writing.component';
 import {VocabComponent} from '../../modals/journal/vocab/vocab.component';
+import {TabsServices} from '../../services/tabs.services';
 
 @Component({
   selector: 'app-home',
@@ -24,12 +25,14 @@ export class HomePage extends RouterPage implements OnDestroy {
       private router: Router,
       private route: ActivatedRoute,
       private journalService: JournalService,
-      public modalController: ModalController
+      public modalController: ModalController,
+      private tabsService: TabsServices
   ) {
     super(router, route);
   }
 
   async onEnter() {
+    this.tabsService.toggleTabsVisibility(true);
     const loading = await this.loadingPref.make();
     loading.present();
 

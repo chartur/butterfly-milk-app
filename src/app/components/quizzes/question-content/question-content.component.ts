@@ -11,7 +11,9 @@ export class QuestionContentComponent implements OnInit {
   appParams = AppParams;
   checkedAnswerIndex: number = null;
   @Input('question') question: any;
+  @Input('readAnswersAfterSelect') readAnswersAfterSelect: boolean = false;
   @ViewChild('player') player: ElementRef;
+  @ViewChild('readAnswer') readAnswer: ElementRef;
 
   @Output('checkedByStudent') checkedByStudent: EventEmitter<any> = new EventEmitter();
 
@@ -19,17 +21,17 @@ export class QuestionContentComponent implements OnInit {
 
   ngOnInit() {}
 
-  answer() {
-
-  }
-
   playAudio() {
     if (this.question.soundfile_path) {
       this.player.nativeElement.play();
     }
   }
 
-  makeCheckedAnswer(index: number) {
+  makeCheckedAnswer(index: number, answer) {
+    if (this.readAnswersAfterSelect && answer.soundfile_path) {
+      this.readAnswer.nativeElement.src = this.appParams.makeStaticUrl(answer.soundfile_path);
+      this.readAnswer.nativeElement.play();
+    }
     this.checkedAnswerIndex = this.checkedAnswerIndex === index ? null : index;
     this.checkedByStudent.emit({ question: this.question, checkedAnswerIndex: this.checkedAnswerIndex });
   }
