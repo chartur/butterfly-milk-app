@@ -1,11 +1,11 @@
 const AppParams = {
     // domain: 'http://192.168.17.19:8080/',
-    // mainUrl: 'http://192.168.17.19:8080/api/',
+    mainUrl: 'http://192.168.17.19:8080/api/',
 
     domain: 'http://5.189.134.90:8088/',
-    mainUrl: 'http://5.189.134.90:8088/api/',
+    // mainUrl: 'http://5.189.134.90:8088/api/',
     makeUrl(url, data ?: {}): string {
-        let u = new URL(this.mainUrl + url);
+        let u = new URL(this.mainUrl + this.currentVersion + url);
         const token = localStorage.getItem('auth_token');
         u.searchParams.append('token', token);
         for (let datum in data) {
@@ -43,6 +43,7 @@ const AppParams = {
         }
         return a;
     },
+    currentVersion: 'v2/',
     urls: {
         postLogin: 'login',
         refreshToken: 'refresh-token',

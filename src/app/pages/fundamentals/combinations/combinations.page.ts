@@ -17,8 +17,8 @@ export class CombinationsPage extends RouterPage implements OnInit, OnDestroy {
 
   combinations: any[];
   staticCount: number;
-  lastItemId: number;
   globalCount: number;
+  pagination = 0;
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
@@ -38,7 +38,7 @@ export class CombinationsPage extends RouterPage implements OnInit, OnDestroy {
 
   async onEnter() {
     this.staticCount = 10;
-    this.lastItemId = 0;
+    this.pagination = 1;
     this.combinations = [];
     const loading = await this.loadingPref.make();
     loading.present();
@@ -48,10 +48,9 @@ export class CombinationsPage extends RouterPage implements OnInit, OnDestroy {
 
   async getCombinations() {
     try {
-      const request: any = await this.handler.run(this.fundamentalsService.getCombinationWords(this.lastItemId, this.staticCount));
+      const request: any = await this.handler.run(this.fundamentalsService.getCombinationWords(this.pagination, this.staticCount));
       this.globalCount = request.data.count;
-      this.combinations = this.combinations.concat(request.data.combinations);
-      this.lastItemId = this.combinations.length ? this.combinations[this.combinations.length - 1].id : 0;
+      this.combinations = request.data.combinations;
     } catch (e) {
       this.handler.presentAlert(e.error.message, e);
     }
@@ -73,6 +72,7 @@ export class CombinationsPage extends RouterPage implements OnInit, OnDestroy {
   }
 
   async loadData(event) {
+    this.pagination++;
     await this.getCombinations();
     event.target.complete();
     if (this.combinations.length >= this.globalCount) {

@@ -14,8 +14,8 @@ export class FundamentalsService {
     return this.http.get(this.params.makeUrl(this.params.urls.fundamentals.index));
   }
 
-  getCombinationWords(lastItemId: number, staticCount: number) {
-    return this.http.get(this.params.makeUrl(this.params.urls.fundamentals.getCombinations, {last: lastItemId, count: staticCount}));
+  getCombinationWords(pagination: number, staticCount: number) {
+    return this.http.get(this.params.makeUrl(this.params.urls.fundamentals.getCombinations, {pagination, count: staticCount}));
   }
 
   getAbcWordsByLetter(letter: string) {

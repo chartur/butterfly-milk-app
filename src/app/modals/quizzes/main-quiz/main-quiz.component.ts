@@ -1,11 +1,12 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {AlertController, ModalController} from '@ionic/angular';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AlertController, IonSlides, ModalController} from '@ionic/angular';
 import {QuizzesService} from '../../../services/quizzes.service';
 import {HandleService} from '../../../services/handle.service';
 import {LoadingPreference} from '../../../preferences/LoadingPreference';
 import {QuizResultsComponent} from '../quiz-results/quiz-results.component';
 import {QuizTimerComponent, TimeNotice} from '../../../components/quizzes/quiz-timer/quiz-timer.component';
 import {QuizStartConfirmationComponent} from '../quiz-start-confirmation/quiz-start-confirmation.component';
+import AppParams from '../../../params';
 
 @Component({
   selector: 'app-main-quiz',
@@ -13,6 +14,8 @@ import {QuizStartConfirmationComponent} from '../quiz-start-confirmation/quiz-st
   styleUrls: ['./main-quiz.component.scss'],
 })
 export class MainQuizComponent implements OnInit {
+
+  appParams = AppParams;
 
   slideOpts = {
     initialSlide: 0,
@@ -29,6 +32,9 @@ export class MainQuizComponent implements OnInit {
     }
   };
   @ViewChild('timerElement') timerElement: QuizTimerComponent;
+  @ViewChild('quizSlider') quizSlider: IonSlides;
+  @ViewChild('quizLoadAudio') quizLoadAudio: ElementRef;
+
   questions: any[] = [];
   timer: number;
   quizMainData: any;
@@ -57,6 +63,7 @@ export class MainQuizComponent implements OnInit {
       this.quizMainData = request.data.quizMainData;
       this.timer = request.data.time;
       loading.dismiss();
+      this.firstAudioPlay();
     } catch (e) {
       this.handler.presentAlert(e.error.message, e);
       loading.dismiss();
@@ -203,5 +210,17 @@ export class MainQuizComponent implements OnInit {
       pagination += `<span class="slider-custom-pagination-item mr-2 ${extraClassName}">${i + 1}</span>`;
     }
     return pagination;
+  }
+
+  async firstAudioPlay() {
+    const index = await this.quizSlider.getActiveIndex();
+    const src = this.questions[index] && this.questions[index].soundfile_path
+        ? this.appParams.makeStaticUrl(this.questions[index].soundfile_path)
+        : '';
+
+    if (src) {
+      this.quizLoadAudio.nativeElement.src = src;
+      this.quizLoadAudio.nativeElement.play();
+    }
   }
 }

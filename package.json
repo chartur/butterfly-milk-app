@@ -33,6 +33,7 @@
     "bootstrap": "^4.3.1",
     "com-sarriaroman-photoviewer": "^1.2.4",
     "cordova-android": "^8.1.0",
+    "cordova-browser": "6.0.0",
     "cordova-plugin-fcm-with-dependecy-updated": "^4.1.0",
     "cordova-plugin-fullscreen": "^1.2.0",
     "cordova-plugin-screen-orientation": "^3.0.2",
@@ -98,7 +99,8 @@
       "cordova-plugin-fullscreen": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

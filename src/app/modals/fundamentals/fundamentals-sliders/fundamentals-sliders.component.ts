@@ -102,7 +102,7 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
       return false;
     }
     if (data.syllables.length) {
-      element.src = data.syllables[0].file
+      element.src = data.syllables[0].file;
       element.onended = () => {
         setTimeout(() => {
           data.syllables.shift();
@@ -110,7 +110,7 @@ export class FundamentalsSlidersComponent implements OnInit, OnChanges {
         }, timing);
       };
       element.play();
-      const searchMask = data.syllables[0].first ? data.syllables[0].syllable.capitalize() : data.syllables[0].syllable;
+      const searchMask = data.syllables[0].syllable.toLowerCase();
       const regEx = new RegExp(searchMask, 'ig');
       const replaceMask = `<span class="text-danger">${ searchMask }</span>`;
       const html = item.word.replace(regEx, replaceMask);
